@@ -43,4 +43,4 @@ def update_histogram(n_clicks, mu, std):
 
 
 if __name__=="__main__":
-    app.run_server('localhost', debug=True)
+    app.run_server('localhost', debug=False)
