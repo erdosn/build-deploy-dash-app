@@ -13,8 +13,6 @@ from components.input_boxes import  render_input_boxes
 external_stylesheets = [dbc.themes.BOOTSTRAP]
 
 app = dash.Dash(__name__, external_stylesheets=external_stylesheets)
-app.clicks = 0
-app.histogram = None
 
 server = app.server
 
@@ -36,17 +34,12 @@ app.layout = html.Div([
 
 
 @app.callback(Output("histogram-container", "children"),
-              [Input("input-mean", "value"),
-               Input("input-std", "value"),
-               Input("submit-button", "n_clicks")])
-def update_histogram(mu, std, n_clicks):
-    if n_clicks == app.clicks:
-        return app.histogram
-    else:
-        app.clicks = n_clicks
-        histogram = render_histogram(mu, std)
-        app.histogram = histogram
-        return histogram
+              [Input("submit-button", "n_clicks")],
+               state=[State("input-mean", "value"),
+                      State("input-std", "value")])
+def update_histogram(n_clicks, mu, std):
+    histogram = render_histogram(mu, std)
+    return histogram
 
 
 if __name__=="__main__":
