@@ -1,16 +1,44 @@
 import dash
-import dash_core_components as dcc
 import dash_html_components as html
 import dash_bootstrap_components as dbc
+from dash.dependencies import Input, Output, State
 
-app = dash.Dash(__name__)
+from components.input_group import render_input_group
+from components.plot_histogram import render_histogram
 
-server = app.server
+external_stylesheets = [dbc.themes.FLATLY]
+
+# create your dash app object
+app = dash.Dash(__name__, external_stylesheets=external_stylesheets)
+
+server = app.server  # this creates a server from our app.server
+
+# this defines the entire app
+# step 1 let's add some input boxes into our app
+# things we add to our app are called components
+# what type of object is this component?
+
+input_group = render_input_group()
+button = dbc.Button("Submit", id="submit-button", color="info", n_clicks=0)
 
 app.layout = html.Div([
-    html.H1("Hello World!")
+    html.H1("Hello World!"),
+    input_group,
+    button,
+    html.Div(id="message-box")
 ])
 
-if __name__=="__main__":
-    app.run_server('localhost', debug=True)
 
+# to make this reactive we need to do callbacks
+@app.callback(Output(component_id="message-box", component_property="children"),
+              [Input("submit-button", "n_clicks")],
+              state=[State(component_id="input-mean", component_property="value"),
+                     State(component_id="input-std", component_property="value")])
+def render_histogram_component(n_clicks, mu, std):
+    histogram = render_histogram(mu, std)
+    return histogram
+
+
+if __name__ == "__main__":
+    # this runs the app
+    app.run_server('localhost', debug=True)
