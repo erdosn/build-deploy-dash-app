@@ -11,6 +11,9 @@ external_stylesheets = [dbc.themes.FLATLY]
 # create your dash app object
 app = dash.Dash(__name__, external_stylesheets=external_stylesheets)
 
+# change the tab title of the app
+app.title="HistoGrammies"
+
 server = app.server  # this creates a server from our app.server
 
 # this defines the entire app
