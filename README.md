@@ -25,3 +25,16 @@
 * Push all changes to github and check its' up to date and working
 * Deploy on heroku
 
+
+## What did we learn?
+* how to create a virtual environment using virtualenv
+    * create `virtual envname`
+    * activate `source envname/bin/activate`
+    * deactivate `deactivate`
+* the libraries to build a dash app
+* writing app callbacks in dash
+    * what triggers a callback? Input
+    * state grabs the current state of attributes of components
+    * output is where the return value is placed
+* using pip freeze to create a requirements.txt file
+    * `pip freeze >> requirements.txt`

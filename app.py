@@ -33,9 +33,9 @@ app.layout = html.Div([
 
 
 # to make this reactive we need to do callbacks
-@app.callback(Output(component_id="message-box", component_property="children"),
-              [Input("submit-button", "n_clicks")],
-              state=[State(component_id="input-mean", component_property="value"),
+@app.callback(Output(component_id="message-box", component_property="children"), # points to where the return is going to go
+              [Input("submit-button", "n_clicks")], # this triggers the callback
+              state=[State(component_id="input-mean", component_property="value"), # state grabs specific information from components in the app
                      State(component_id="input-std", component_property="value")])
 def render_histogram_component(n_clicks, mu, std):
     histogram = render_histogram(mu, std)
