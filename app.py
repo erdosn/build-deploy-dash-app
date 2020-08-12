@@ -29,7 +29,9 @@ app.layout = html.Div([
     input_group,
     button,
     html.Div(id="message-box")
-])
+    ],
+    style={"margin-left":"30px", "margin-right":"30px"}
+)
 
 
 # to make this reactive we need to do callbacks
